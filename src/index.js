@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider } from './context/AuthContext'; // path ให้ตรงกับที่เก็บไฟล์จริง
 import { CartProvider } from './context/CartContext';
 
 ReactDOM.createRoot(document.getElementById('root')).render(

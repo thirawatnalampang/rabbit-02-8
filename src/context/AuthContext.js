@@ -1,27 +1,48 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem('user');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
 
-  const login = (userData) => {
-    console.log('login called with', userData);
-    setUser(userData);
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('user');
+    }
+  }, [user]);
+
+const login = (userData) => {
+  const fullUserData = {
+    user_id: userData.user_id,
+    username: userData.username,
+    email: userData.email || '',
+    phone: userData.phone || '',
+    address: userData.address || '',
+    gender: userData.gender || '',   // <-- เพิ่มตรงนี้
+    profileImage: userData.profileImage || userData.profile_image || 'https://via.placeholder.com/100',
   };
+  setUser(fullUserData);
+};
 
   const logout = () => setUser(null);
 
-  // ✅ เพิ่มฟังก์ชัน Login ด้วย Google (mock ไว้ก่อน)
   const loginWithGoogle = async () => {
-    // จำลองการล็อกอินแบบ Google
+    // ตัวอย่างล็อกอิน google mock
     const googleUser = {
+      user_id: 9999,
       username: 'google_user',
       email: 'google@example.com',
-      provider: 'google',
+      phone: '',
+      address: '',
+      gender: '',
+      profileImage: 'https://via.placeholder.com/100',
     };
-
-    setUser(googleUser); // อัปเดต user
+    setUser(googleUser);
   };
 
   return (

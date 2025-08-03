@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 
 import Home from './pages/Home';
@@ -15,36 +15,50 @@ import Food from './pages/Food';
 import Equipment from './pages/Equipment';
 import FoodDetail from './pages/FoodDetail';
 import EquipmentDetail from './pages/EquipmentDetail';
+import SellerDashboard from './pages/SellerDashboard';
+import ManageRabbits from './pages/ManageRabbits';
+import AddRabbitForm from './pages/AddRabbitForm';
+import ManageOrdersPage from './pages/ManageOrdersPage'; 
+import DeliveryStatus from './pages/DeliveryStatus';
+import StatisticsPage from './pages/StatisticsPage';
+import SearchPage from './pages/SearchPage';
+import ParentsPage from './pages/ParentsPage'; 
+import BookingPage from './pages/BookingPage';
 
 import './App.css';
 
 function App() {
-  const [user, setUser] = useState(null);
-  // eslint-disable-next-line no-unused-vars
-const location = useLocation();
-
   return (
     <>
-      {/* ✅ แสดง Navbar ทุกหน้า */}
-      <Navbar user={user} />
+      {/* ไม่ต้องส่ง user ผ่าน props เพราะใช้ Context */}
+      <Navbar />
 
       <div className="p-4">
         <Routes>
-          <Route path="/" element={<Home />} /> {/* ✅ หน้าแรก */}
+          <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/pets" element={<Pets />} />
           <Route path="/pets/:id" element={<PetDetail />} />
           <Route path="/cart" element={<CartPage />} />
-          <Route path="/login" element={<LoginPage setUser={setUser} />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/profile" element={<ProfilePage user={user} />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/get-started" element={<GetStartedPage />} />
-          <Route path="/pet-food" element={<Food />} /> {/* ✅ เพิ่มตรงนี้! */}
+          <Route path="/pet-food" element={<Food />} />
           <Route path="/equipment" element={<Equipment />} />
           <Route path="/pet-food/:id" element={<FoodDetail />} />
           <Route path="/equipment/:id" element={<EquipmentDetail />} />
-          <Route path="*" element={<NotFound />} /> {/* ✅ ไม่พบเส้นทาง */}
-          
+          <Route path="/seller-dashboard" element={<SellerDashboard />} />
+          <Route path="/manage-rabbits" element={<ManageRabbits />} />
+          <Route path="/add-rabbit" element={<AddRabbitForm />} />
+          <Route path="/manage-orders" element={<ManageOrdersPage />} />
+          <Route path="/shipping" element={<DeliveryStatus />} />
+          <Route path="/statistics" element={<StatisticsPage />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/parents" element={<ParentsPage />} />
+          <Route path="/booking" element={<BookingPage />} />
+
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </>
